@@ -19,7 +19,7 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --no-exec | xargs swaymsg exec --
+set $menu rofi -show drun --no-exec | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -175,6 +175,13 @@ input * {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+# 
+# Volume Control
+#
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
 #
 # Resizing containers:
 #
@@ -212,25 +219,29 @@ client.background        $base
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+#bar {
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+#
+#    colors {
+#        statusline $text
+#        background $base
+#      	focused_statusline $text
+#    	  active_workspace   $base $text $blue
+#    	  focused_separator  $base
+#    	  focused_workspace  $base $base $green
+#    	  active_workspace   $base $base $blue
+#    	  inactive_workspace $base $base $surface1
+#    	  urgent_workspace   $base $base $surface1
+#    	  binding_mode       $base $base $surface1
+#    }
+#}
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+bar swaybar_command waybar
 
-    colors {
-        statusline $text
-        background $base
-	focused_statusline $text
-    	active_workspace   $base $text $blue
-    	focused_separator  $base
-    	focused_workspace  $base $base $green
-    	active_workspace   $base $base $blue
-    	inactive_workspace $base $base $surface1
-    	urgent_workspace   $base $base $surface1
-    	binding_mode       $base $base $surface1
-    }
-}
 
 include @sysconfdir@/sway/config.d/*
+
