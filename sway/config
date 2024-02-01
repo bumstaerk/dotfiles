@@ -206,6 +206,12 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+# 
+# Startup
+#
+  exec swaymsg "workspace 1; exec kitty;"
+  exec swaymsg "workspace 2; exec google-chrome;"
+  exec swaymsg "workspace 3; exec obsidian;"
 
 # target                 title     bg    text   indicator  border
 client.focused           $mauve	   $base $text  $rosewater $mauve
