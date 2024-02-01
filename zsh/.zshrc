@@ -7,5 +7,8 @@ source ~/dotfiles/zsh/nvm.zsh
 source ~/dotfiles/zsh/pnpm.zsh
 source ~/dotfiles/zsh/alias.zsh
 
+# load rust
+source "$HOME/.cargo/env"
+
 eval "$(starship init zsh)"
 
