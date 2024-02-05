@@ -21,6 +21,20 @@
     "battery",
     "battery#bat2"
   ],
+  "sway/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+            "1": "",
+            "2": "󰊯",
+            "3": "󰹕",
+            "4:work": "",
+            "5:music": "",
+            "6:docs": "",
+      }
+    },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+    },
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -127,7 +141,7 @@
       "critical": 15
     },
     "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
+    "format-charging": "{capacity}% 󱐋",
     "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
     // "format-good": "", // An empty format will hide the module
