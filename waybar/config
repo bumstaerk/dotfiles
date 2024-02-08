@@ -4,7 +4,7 @@
   "height": 40,
   "spacing": 8,
   "modules-left": [
-    "sway/workspaces",
+    "hyprland/workspaces",
     "sway/mode",
     "sway/scratchpad",
     "custom/media"
@@ -13,6 +13,8 @@
     "clock"
   ],
   "modules-right": [
+   "idle_inhibitor",
+   "temperature",
     "pulseaudio",
     "network",
     "cpu",
@@ -21,7 +23,7 @@
     "battery",
     "battery#bat2"
   ],
-  "sway/workspaces": {
+  "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
             "1": "",
@@ -108,7 +110,7 @@
     "format": "{}% "
   },
   "temperature": {
-    // "thermal-zone": 2,
+     "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
     // "format-critical": "{temperatureC}°C {icon}",

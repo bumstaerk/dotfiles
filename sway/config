@@ -221,9 +221,9 @@ bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] |
 # 
 # Startup
 #
-  exec swaymsg "workspace 1; exec kitty;"
-  exec swaymsg "workspace 2; exec google-chrome;"
-  exec swaymsg "workspace 3; exec obsidian;"
+  exec swaymsg "workspace number 1; exec kitty"
+  exec swaymsg "workspace number 2; exec google-chrome"
+  exec swaymsg "workspace number 3; exec obsidian"
 
 # target                 title     bg    text   indicator  border
 client.focused           $mauve	   $base $text  $rosewater $mauve
