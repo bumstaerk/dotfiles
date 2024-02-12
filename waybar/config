@@ -5,33 +5,43 @@
   "spacing": 8,
   "modules-left": [
     "hyprland/workspaces",
-    "sway/mode",
-    "sway/scratchpad",
-    "custom/media"
   ],
   "modules-center": [
-    "clock"
+    "clock",
   ],
   "modules-right": [
-   "idle_inhibitor",
-   "temperature",
-    "pulseaudio",
+//   "idle_inhibitor",
+//   "temperature",
+    
     "network",
-    "cpu",
-    "memory",
-    "keyboard-state",
-    "battery",
-    "battery#bat2"
+    "group/media",
+    "group/hardware",
+    "tray"
   ],
+  "group/media": {
+    "orientation":"horizontal",
+     "modules":["custom/playerctl",
+
+     "pulseaudio"]
+    },
+  "group/hardware":{
+      "orientation": "horizontal",
+      "modules": [
+      "temperature",
+      "cpu",
+      "memory",
+      "battery"
+      ]
+    },
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
             "1": "",
             "2": "󰊯",
             "3": "󰹕",
-            "4:work": "",
-            "5:music": "",
-            "6:docs": "",
+            "4": "",
+            "5": "",
+            "6": "",
       }
     },
   "sway/mode": {
@@ -46,6 +56,21 @@
       "unlocked": ""
     }
   },
+  "custom/playerctl": {
+        "interval": 1,
+        "format": "{icon} {}",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/playerctl.sh",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "scroll-step": 10,
+        "return-type": "json",
+        "format-icons": {
+            "Playing": "󰎈",
+            "Paused": "󰏤"
+        }
+    },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
   },
@@ -98,7 +123,7 @@
   },
   "clock": {
     "timezone": "Europe/Copenhagen",
-    "format": "{:%H:%M %Y-%m-%d}",
+    "format": "{:%H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
@@ -161,9 +186,9 @@
   },
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-wifi": "{signalStrength}% ",
     "format-ethernet": "{ipaddr}/{cidr} ",
-    "tooltip-format": "{ifname} via {gwaddr} ",
+    "tooltip-format": "{essid} {ifname} via {gwaddr} ",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
@@ -191,16 +216,4 @@
     },
     "on-click": "pavucontrol"
   },
-  "custom/media": {
-    "format": "{icon} {}",
-    "return-type": "json",
-    "max-length": 40,
-    "format-icons": {
-      "spotify": "",
-      "default": "🎜"
-    },
-    "escape": true,
-    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-  }
 }
