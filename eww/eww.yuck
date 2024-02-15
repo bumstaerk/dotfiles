@@ -1,29 +1,126 @@
-(deflisten workspace "scripts/workspace")
 
 (defwidget bar []
   (centerbox :orientation "h"
     (workspaces)
     (music)
-    (sidestuff)))
+    (sidestuff)
+    ;;(updown :text {EWW_RAM.used_mem_perc})
+    ))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
-            :value volume
-            :onchange "amixer -D pulse sset Master {}%")
-    (metric :label ""
-            :value {EWW_RAM.used_mem_perc}
-            :onchange "")
-    (metric :label "💾"
-            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-            :onchange "")
-    time))
+    ;;(metric :label "🔊"
+    ;;        :value volume
+    ;;        :onchange "amixer -D pulse sset Master {}%")
+    ;;(metric :label "RAM"
+    ;;        :value {EWW_RAM.used_mem_perc}
+    ;;        :onchange "")
+    ;;(testtxt :text {EWW_CPU})
+    ;;(greeter :text {EWW_NET} :name "Martin")
+    ;;(updown :text {EWW_RAM.used_mem_perc} )
+    (circleindicator
+      :class "vol_indicator"
+      :value volume
+      :label "Volume at: " 
+    )
+    (circleindicator
+      :class "mem_indicator"
+      :value {EWW_RAM.used_mem_perc}
+      :label "Memory used: " 
+    )
+    (circleindicator
+      :class "cpu_indicator"
+      :value {EWW_CPU.avg}
+      :label "CPU load: " 
+    )
+    (circleindicator
+      :class "battery_indicator"
+      :value {EWW_BATTERY.BAT0.capacity}
+      :label "Battery left: " 
+    )
+    ;;(netstats :up {EWW_NET.wlp59s0.NET_UP} :down {EWW_NET.wlp59s0.NET_DOWN} )
+    time
+
+  ))
+
+(defwidget circleindicator [?class value label]
+  (box 
+    :class class
+    :vexpand "false"
+    :hexpand "false"
+    (circular-progress
+      :orientation "horizontal"
+      :value value
+      :height 21
+      :width 21
+      :thickness 4
+      :start-at 0
+      :clockwise true
+      :class "membar"
+      :show_truncated false
+      :wrap false
+      :tooltip "${label}: ${value}%"
+      ""
+    )
+  )
+)
+
+(defwidget testtxt [?text]
+  (box :class "test_box"
+    :tooltip "${text}"
+    "test"
+ )
+)
+(defwidget updown [?text]
+  (box :class "mem_module" :vexpand "false" :hexpand "false"
+  (circular-progress 
+    :orientation "horizontal"
+    :value text
+    :height 21
+    :width 21
+    :thickness 4
+    :start-at 0
+    :class "membar"
+    :show_truncated false
+    :wrap false
+    :tooltip "using ${text}"
+    ""
+    )
+  ))
+
+(defwidget netstats [up down]
+  (box
+    :orientation "horizontal"
+    :halign "center"
+    "up: "
+    (graph
+      :class "net_up"
+      :value up
+      :time-range "30s"
+      :width 40
+      :dynamic true
+    )
+    "down: "
+  (graph
+      :class "net_down"
+      :value up
+      :time-range "30s"
+      :width 40
+      :dynamic true
+    ))
+)
+(defwidget greeter [?text name]
+  (box :orientation "horizontal"
+       :halign "center"
+    text
+    (button :onclick "notify-send 'Hello' 'Hello, ${name}'"
+      "Greet")))
 
 (deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
 (deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
 (defwidget workspaces []
   (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-    (box :space-evenly true
+    (box :space-evenly false
       (label :text "${workspaces}${current_workspace}" :visible false)
       (for workspace in workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
@@ -36,13 +133,18 @@
     )
   )
 
+;; https://github.com/altdesktop/playerctl#printing-properties-and-metadata
+;; Prints 'Total length: 3:23'
+;; playerctl metadata --format "Total length: {{ duration(mpris:length) }}"
 
+;; Prints 'At position: 1:16'
+;; playerctl position --format "At position: {{ duration(position) }}"
 (defwidget music []
   (box :class "music"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵${music}" : ""}))
+    {music != "" ? "🎵 ${music}" : ""}))
 
 
 (defwidget metric [label value onchange]
@@ -74,7 +176,7 @@
   :exclusive true
   :geometry (geometry :x "0%"
                       :y "0%"
-                      :width "90%"
+                      :width "100%"
                       :height "10px"
                       :anchor "top center")
   :reserve (struts :side "top" :distance "3%")

@@ -1,16 +1,96 @@
 * {
   all: unset; //Unsets everything so you can style everything from scratch
+  font-family: "Fira Code";
 }
 
+// Colors
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+
+$text: #cdd6f4;
+$subtext0: #a6adc8;
+$subtext0: #bac2de;
+
+$surface0: #313244;
+$surface1: #45475a;
+$surface2: #585b70;
+
+$overlay0: #6c7086;
+$overlay1: #7f849c;
+$overlay2: #9399b2;
+
+$rosewater: #f5e0dc;
+$flamingo: #f2cdcd;
+$pink: #f5c2e7;
+$mauve: #f5c2e7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+
+// Theme
+$primary: #a6e3a1;
+$secondary: #cba6f7;
 //Global Styles
 .bar {
-  background-color: #3a3a3a;
-  color: #b0b4bc;
+  background-color: $base;
+  color: $text;
   padding: 10px;
 }
-.workspaces-widget .current { background:red }
-// Styles on classes (see eww.yuck for more information)
+.workspaces-widget .workspace-entry { 
+  background:$mantle; 
+  padding:0 10px;
+}
+.workspaces-widget .current { 
+  background:$surface0;
+  border-bottom:2px solid $secondary;
+}
 
+tooltip.background { 
+  background-color: $mantle;
+  font-size: 15;
+  padding:20px;
+  border-radius: 10px;
+  color: $text;
+}
+// Styles on classes (see eww.yuck for more information)
+.cpu_indicator,
+.battery_indicator,
+.mem_indicator,
+.vol_indicator{
+  background:$surface0;
+  margin:0 8px;
+  border-radius:50%;
+}
+.mem_indicator tooltip {
+  background:red;
+}
+.mem_indicator {
+  color: $green;
+}
+
+.battery_indicator {
+  color:$peach;
+}
+
+.cpu_indicator {
+  color:$red;
+}
+
+.vol_indicator{
+  color:$blue;
+}
+
+.mem_module label {
+  font-size:15px;
+}
 .sidestuff slider {
   all: unset;
   color: #ffd5cd;
