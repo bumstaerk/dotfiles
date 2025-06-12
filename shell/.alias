@@ -1,4 +1,4 @@
-alias bd="cd ~/bording/"
+alias wo="cd ~/work/"
 alias pj="cd ~/projects/"
 alias pg="cd ~/playgrounds/"
 alias h="cd ~/"
