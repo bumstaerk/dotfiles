@@ -7,7 +7,11 @@ brew "neovim"
 brew "zsh"
 brew "antidote"
 brew "starship"
-brew "nvm"
 brew "tmux"
 brew "tpm"
 
+# language
+
+brew "nvm"
+brew "go"
+brew "rust"
