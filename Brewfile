@@ -13,5 +13,6 @@ brew "tpm"
 # language
 
 brew "nvm"
+brew "pnpm"
 brew "go"
 brew "rust"
