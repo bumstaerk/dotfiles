@@ -1,9 +1,0 @@
-alias wo="cd ~/work/"
-alias pj="cd ~/projects/"
-alias pg="cd ~/playgrounds/"
-alias h="cd ~/"
-alias dot="cd ~/dotfiles/"
-alias nv="nvim"
-alias txn="tmux new-session -A -s "
-
-

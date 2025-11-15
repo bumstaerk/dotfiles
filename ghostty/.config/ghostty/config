@@ -1,0 +1,8 @@
+theme = catppuccin-mocha.conf
+font-size = 14
+command = /usr/bin/zsh --login --interactive
+shell-integration = zsh
+background-opacity = 0.95
+gtk-titlebar = false
+window-padding-x = 4
+window-padding-y = 4
